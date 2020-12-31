@@ -7,7 +7,7 @@
     <title>Weather Dashboard</title>
 </head>
 <body>
-    <button data-weather="Melbourne">Melbourne Temp</button>
+    <button data-weather="Melbourne,au">Melbourne Temp</button>
     <button data-weather="Tokyo">Tokyo Temp</button>
     <button data-weather="London">London Temp</button>
     <div id="gifs-appear-here">
@@ -17,7 +17,7 @@
       $("button").on("click", function() {
         var city = $(this).attr("data-weather");
         var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" +
-          city + "&APPID=2c21c13c66f088ce875b0a51abc2134e";
+          city + "&units=metric&APPID=2c21c13c66f088ce875b0a51abc2134e";
   
         $.ajax({
           url: queryURL,
@@ -27,9 +27,29 @@
           // Open up the data key, then open up the 0th, element. Study the keys and how the JSON is structured.
   
           console.log(response);
-          console.log(response.main.temp);
-          console.log(response.name + "'s current temperature is " + (Math.floor(response.main.temp - 273.15))+" degrees Celcius");
-  
+          console.log("Humidity: " + response.main.humidity + "%");
+          console.log("Wind Speed: " + response.wind.speed + "km/h");
+          console.log(response.name + " temperature: " + (response.main.temp)+" degrees C");
+          const milliseconds = response.dt * 1000;
+          const dateObject = new Date(milliseconds);
+          const humanDateFormat = dateObject.toLocaleString("en-US", {day: "numeric", month: "numeric", year: "numeric"});
+          console.log("(" + humanDateFormat + ")"); 
+          // add weather icon
+          console.log(response.weather[0].icon);
+          
+
+        // Step 2: Use the longitude and latitude from the Current weather data query to get weather data from the One Call API (free) which includes Daily forecast for 7 days, JSON format, and UV index data.
+          var queryURL2 = "https://api.openweathermap.org/data/2.5/onecall?lat=" + response.coord.lat + "&lon=" + response.coord.lon + "&exclude=minutely,hourly&units=metric&appid=2c21c13c66f088ce875b0a51abc2134e";
+
+          $.ajax({
+          url: queryURL2,
+          method: "GET"
+        }).then(function(response) {
+            console.log(response);
+            console.log("UV Index: " + response.current.uvi);
+            
+        });
+
           // Step 2: since the image information is inside of the data key,
           // make a variable named results and set it equal to response.data
   
