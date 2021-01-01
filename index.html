@@ -4,47 +4,83 @@
     <head>
       <!--Import Google Icon Font-->
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-      <!--Import materialize.css-->
+      <!--Import bootstrap.css-->
         <!-- Compiled and minified CSS -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-      <!--Let browser know website is optimized for mobile-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">      
+        <!--Let browser know website is optimized for mobile-->
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     
       <style>
         table, th, td {
-          border: 1px solid black;
+          border: 1px solid rgb(192, 192, 192);
           border-collapse: collapse;
+        }
+        #sidebar {
+            background-color: rgb(245, 245, 245);
+        }
+        table {
+            width: 100%;
+        }
+        tbody {
+            background-color: white;
+            color: rgb(88, 88, 88);
+        }
+        td {
+            padding: 0.4rem 1rem 0.4rem 1rem;
+        }
+        input[type=text] {
+            width: 130px;
+            box-sizing: border-box;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            background-color: white;
+            background-image: url('assets/search-24px.svg');
+            background-position: 10px 10px; 
+            background-repeat: no-repeat;
+            padding: 12px 20px 12px 40px;
+            transition: width 0.4s ease-in-out;
+        }
+
+        input[type=text]:focus {
+            width: 100%;
+        }
+
+        #current-weather {
+            border: 1px solid rgb(192, 192, 192);
         }
         </style>
 
     </head>
 
     <body>
-        <nav>
-            <div class="nav-wrapper grey darken-3">
-              <a href="#" class="brand-logo center">Weather Dashboard</a>
+        <div class="text-center  bg-secondary">
+            <div class="header text-white p-2">
+              <h1>Weather Dashboard</h1>
             </div>
-        </nav>
+        </div>
 
         <div class="row">
-            <div class="col s3 grey lighten-5">
-               <div class="row">
-                   <div class="col s12">
-                        <label for="city-search"><h5 class="black-text">Search for a City:</h5></label>
+            <div class="col-3" id="sidebar">
+               <div class="row p-2">
+                   <div class="col-12">
+                        <label for="city-search"><h5>Search for a City:</h5></label>
                     </div>
                </div>
-               <div class="row">
-                    <div class="input-field col s11">
-                        <i class="material-icons prefix">search</i>
-                        <input id="icon_search" type="search" class="validate">
-                        <label for="icon_search">Search for city</label>
+               <div class="row p-2">
+                    <div class="input-field col-11">
+                        <p>Search for temp city:</p>
+
+                        <form>
+                            <input type="text" name="search" placeholder="Search..">
+                        </form>
                     </div>
                 </div>
                 
-                <div class="row">
-                    <div class="col s12">
+                <div class="row p-2">
+                    <div class="col-12">
                         <table>
-                            <tbody class="white">
+                            <tbody>
                                 <tr>
                                     <td>a city</td>
                                 </tr>
@@ -61,8 +97,63 @@
 
             </div>
 
-            <div class="col s9">
-                <p>main content here</p>
+            <div class="col-9">
+                <div class="row">
+                    <div class="col-12 m-3" id="current-weather">
+                        <h4>City and (day/month/year) and icon</h4>
+                        <p>Temperature:</p>
+                        <p>Humidity:</p>
+                        <p>Wind speed:</p>
+                        <p>UV index:</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col mx-3">
+                          <h5><strong>5-day Forecast:</strong></h5>
+                    </div>
+                </div>
+                <div class="row m-2">
+                    <div class="rounded col-2 card bg-primary text-light p-0 mx-2">
+                        <div class="card-body p-2">
+                            <h5 class="card-title">Date</h5>
+                            <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="weather icon">
+                            <p class="card-text">Temp:</p>
+                            <p class="card-text">Humidity:</p>
+                        </div>
+                    </div>
+                    <div class="col-2 mr-3 card bg-primary text-light p-0 mx-2">
+                        <div class="card-body p-2">
+                            <h5 class="card-title">Date</h5>
+                            <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="weather icon">
+                            <p class="card-text">Temp:</p>
+                            <p class="card-text">Humidity:</p>
+                        </div>
+                    </div>
+                    <div class="col-2 mr-3 card bg-primary text-light p-0 mx-2">
+                        <div class="card-body p-2">
+                            <h5 class="card-title">Date</h5>
+                            <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="weather icon">
+                            <p class="card-text">Temp:</p>
+                            <p class="card-text">Humidity:</p>
+                        </div>
+                    </div>
+                    <div class="col-2 card bg-primary text-light p-0 mx-2">
+                        <div class="card-body p-2">
+                            <h5 class="card-title">Date</h5>
+                            <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="weather icon">
+                            <p class="card-text">Temp:</p>
+                            <p class="card-text">Humidity:</p>
+                        </div>
+                    </div>
+                    <div class="col-2 mr-3 card bg-primary text-light p-0 mx-2">
+                        <div class="card-body p-2">
+                            <h5 class="card-title">Date</h5>
+                            <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="weather icon">
+                            <p class="card-text">Temp:</p>
+                            <p class="card-text">Humidity:</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     
@@ -74,8 +165,8 @@
         <!-- jQuery script -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         
-        <!-- Compiled and minified JavaScript -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <!-- Compiled and minified Bootstrap JavaScript -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
         
         <script type="text/javascript">
             $("button").on("click", function() {
