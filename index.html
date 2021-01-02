@@ -91,7 +91,7 @@
                             <label for="city-search-text"><h5>Search for a City:</h5></label><br>
                             <input type="search" name="search" id="search-input" placeholder="Search..">
                             <!-- This button will trigger our AJAX call -->
-                            <button type="submit" class="btn btn-default bg-primary" id="run-search">
+                            <button type="submit" class="btn btn-default bg-primary city" id="run-search">
                                 <i class="fa fa-search text-white"></i></button>                        
                         </form>
                     </div>
@@ -237,6 +237,9 @@
                 localStorage.setItem("cities", JSON.stringify(citiesArray));
             }
 
+
+
+
             // When a city is entered in the Search input box...
             $("#run-search").on("click", function weatherQuery(event) {
                 
@@ -266,100 +269,126 @@
                 var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" +
                 city + "&units=metric&APPID=2c21c13c66f088ce875b0a51abc2134e";
   
-            $.ajax({
-            url: queryURL,
-            method: "GET"
-            }).then(function(response) {
-                var cityName = response.name;
-                // prepare the retrieved date data for html
-                const milliseconds = response.dt * 1000;
-                const dateObject = new Date(milliseconds);
-                const humanDateFormat = dateObject.toLocaleString("en-GB", {day: "numeric", month: "numeric", year: "numeric"});
-                
-                // Dynamically generate table rows and tables data for each city in the array.
-                $("#current-weather").empty();
-                
-                var currentDate = $("<h4>");
-                    // currentDate.attr("id", "current-date");
+                $.ajax({
+                url: queryURL,
+                method: "GET"
+                }).then(function(response) {
+                    var cityName = response.name;
+                    // prepare the retrieved date data for html
+                    const milliseconds = response.dt * 1000;
+                    const dateObject = new Date(milliseconds);
+                    const humanDateFormat = dateObject.toLocaleString("en-GB", {day: "numeric", month: "numeric", year: "numeric"});
+                    
+                    // Dynamically generate table rows and tables data for each city in the array.
+                    $("#current-weather").empty();
+                    
+                    // Add date
+                    var currentDate = $("<h4>");
                     currentDate.text(response.name + " " + "(" + humanDateFormat + ")");
                     $("#current-weather").append(currentDate);
                     
+                    // Add weather icon
                     var icon = response.weather[0].icon;
                     var weatherIcon = ("http://openweathermap.org/img/wn/" + icon + "@2x.png");
                     var iconTag = $("<img>");
                     iconTag.attr("src", weatherIcon);
                     iconTag.attr("alt", "weather icon");
-                    // <img src = weatherIcon alt="weather icon">
                     $("#current-weather").append(iconTag);
-                    
-                    
-                    var currentTemp = $("<p>");
-                        currentTemp.text("Temperature: " + response.main.temp + "°C");
-                        $("#current-weather").append(currentTemp);
-                        
-                        var currentHumidity = $("<p>");
-                            currentHumidity.text("Humidity: " + response.main.humidity + "%");
-                            $("#current-weather").append(currentHumidity);
-                            
-                            var currentWSpeed = $("<p>");
-                                currentWSpeed.text("Wind Speed: " + response.wind.speed + "m/s");
-                                $("#current-weather").append(currentWSpeed);
-                                
-                                
-                                
-                                // Step 2: Use the longitude and latitude from the Current weather data query to get weather data from the One Call API (free) which includes Daily forecast for 7 days, JSON format, and UV index data.
-                                var queryURL2 = "https://api.openweathermap.org/data/2.5/onecall?lat=" + response.coord.lat + "&lon=" + response.coord.lon + "&exclude=minutely,hourly&units=metric&appid=2c21c13c66f088ce875b0a51abc2134e";
-                                
-                                $.ajax({
-                                    url: queryURL2,
-                                    method: "GET"
-                                }).then(function(response) {
-                                    console.log(response);
-                                    console.log("UV Index: " + response.current.uvi);
-                                    
-                                    var currentUV = $("<p>");
-                                        currentUV.text("UV Index: " + response.current.uvi);
-                                        $("#current-weather").append(currentUV);
-                                        
-                                        
-                                        // 5-day forecast test
-                                        // prepare the retrieved date data for html
-                                        for (var i = 0; i < 5; i++) {
-                                            // create box for each day
-                                            
-                                            // add date
-                                            const milliseconds = response.daily[i].dt * 1000;
-                                            const dateObject = new Date(milliseconds);
-                                            const humanDateFormat = dateObject.toLocaleString("en-GB", {day: "numeric", month: "numeric", year: "numeric"});
-                                            // tomorrowDate.text(cityName + " " + "(" + humanDateFormat + ")");
-                                            console.log(cityName + " " + "(" + humanDateFormat + ")");
-                                            let dailyDate = $("<h5>");
-                                            let dailyBox = "#date-day" + (i+1);
-                                                $(dailyBox).text(humanDateFormat);
-                                                
-                                                // add icon
-                                                console.log("Icon: " + response.daily[i].weather[0].icon);
-                                                let dailyIcon = "#icon-day" + (i+1);
-                                                let dailyWeatherIcon = "http://openweathermap.org/img/wn/" + (response.daily[i].weather[0].icon) + "@2x.png"
-                                                $(dailyIcon).attr("src", dailyWeatherIcon);
 
-                                                // add temp
-                                                let dailyTemp = "#temp-day" + (i+1);
-                                                $(dailyTemp).text("Temp: " + response.daily[i].temp.max + "°C");
-                                                
-                                                
-                                                // add humidity
-                                                console.log("Humidity: " + response.daily[i].humidity + "%");
-                                                let dailyHumid = "#humid-day" + (i+1);
-                                                $(dailyHumid).text("Humidity: " + response.daily[i].humidity + "%");
-                                        };
-                                        
-                                    });
+
+                    var currentTemp = $("<p>");
+                    currentTemp.text("Temperature: " + response.main.temp + "°C");
+                    $("#current-weather").append(currentTemp);
+                            
+                    var currentHumidity = $("<p>");
+                    currentHumidity.text("Humidity: " + response.main.humidity + "%");
+                    $("#current-weather").append(currentHumidity);
+                                
+                    var currentWSpeed = $("<p>");
+                    currentWSpeed.text("Wind Speed: " + response.wind.speed + "m/s");
+                    $("#current-weather").append(currentWSpeed);
                                     
                                     
-        });
+                                    
+                    // Step 2: Use the longitude and latitude from the Current weather data query to get weather data from the One Call API (free) which includes Daily forecast for 7 days, JSON format, and UV index data.
+                    var queryURL2 = "https://api.openweathermap.org/data/2.5/onecall?lat=" + response.coord.lat + "&lon=" + response.coord.lon + "&exclude=minutely,hourly&units=metric&appid=2c21c13c66f088ce875b0a51abc2134e";
+                    
+                    $.ajax({
+                        url: queryURL2,
+                        method: "GET"
+                    }).then(function(response) {
+                        console.log(response);
+                        console.log("UV Index: " + response.current.uvi);
+                        
+                        var button = $("<button>");
+                        button.text(response.current.uvi);
+                        button.attr("class", "btn rounded text-white");
+
+                        var currentUV = $("<p>");
+                        currentUV.text("UV Index: ");
+                        currentUV.append(button);
+                        $("#current-weather").append(currentUV);
+
+                        // add UV index color here
+                        var simplifiedUVI = Math.round(response.current.uvi); 
+                        if (simplifiedUVI < 3) {
+                            // make green
+                            button.attr("style", "background-color: rgb(44, 174, 21);");
+                        }
+                        else if (simplifiedUVI >= 3 && simplifiedUVI < 6) {
+                            // make yellow
+                            button.attr("style", "background-color: rgb(255, 227, 0);");
+                            button.attr("class", "btn rounded text-black");
+                        }             
+                        else if (simplifiedUVI >= 6 && simplifiedUVI < 8) {
+                            // make orange
+                            button.attr("style", "background-color: rgb(255, 170, 0);");
+                        }
+                        else {
+                            // make red
+                            button.attr("style", "background-color: rgb(255, 0, 0);");
+                        }
+                        
+
+
+                        // 5-day forecast test
+                        // prepare the retrieved date data for html
+                        for (var i = 0; i < 5; i++) {
+                            // create box for each day
+                            
+                            // add date
+                            const milliseconds = response.daily[i].dt * 1000;
+                            const dateObject = new Date(milliseconds);
+                            const humanDateFormat = dateObject.toLocaleString("en-GB", {day: "numeric", month: "numeric", year: "numeric"});
+                            // tomorrowDate.text(cityName + " " + "(" + humanDateFormat + ")");
+                            console.log(cityName + " " + "(" + humanDateFormat + ")");
+                            let dailyDate = $("<h5>");
+                            let dailyBox = "#date-day" + (i+1);
+                            $(dailyBox).text(humanDateFormat);
+                            
+                            // add icon
+                            console.log("Icon: " + response.daily[i].weather[0].icon);
+                            let dailyIcon = "#icon-day" + (i+1);
+                            let dailyWeatherIcon = "http://openweathermap.org/img/wn/" + (response.daily[i].weather[0].icon) + "@2x.png"
+                            $(dailyIcon).attr("src", dailyWeatherIcon);
+
+                            // add temp
+                            let dailyTemp = "#temp-day" + (i+1);
+                            $(dailyTemp).text("Temp: " + response.daily[i].temp.max + "°C");
+                            
+                            
+                            // add humidity
+                            console.log("Humidity: " + response.daily[i].humidity + "%");
+                            let dailyHumid = "#humid-day" + (i+1);
+                            $(dailyHumid).text("Humidity: " + response.daily[i].humidity + "%");
+                            }; 
+                        });                                    
+                });
         
-      });
+             });
+
+
+             
 
       // When an element inside the citiesTable is clicked....
       citiesTable.on("click", function (event) {
@@ -386,7 +415,7 @@
       // We're adding a click event listener to all elements with the class "city"
       // We're adding the event listener to the document because it will work for dynamically generated elements
       // $(".city").on("click") will only add listeners to elements that are on the page at that time
-      $(document).on("click", ".city", weatherQuery);
+      $(document).on("click", ".city", weatherQuery());
 
     </script>
   </body>
