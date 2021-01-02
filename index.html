@@ -29,16 +29,16 @@
             padding: 0.4rem 1rem 0.4rem 1rem;
         }
         input[type=text] {
-            width: 130px;
-            box-sizing: border-box;
+            /* width: 130px; */
+            box-sizing: content-box;
             border: 2px solid #ccc;
             border-radius: 4px;
             font-size: 16px;
             background-color: white;
-            background-image: url('assets/search-24px.svg');
+            /* background-image: url('assets/search-24px.svg'); */
             background-position: 10px 10px; 
             background-repeat: no-repeat;
-            padding: 12px 20px 12px 40px;
+            padding: 12px 20px 12px 20px;
             transition: width 0.4s ease-in-out;
         }
 
@@ -66,9 +66,11 @@
                    <div class="col-12">
                        <form>
                             <label for="city-search"><h5>Search for a City:</h5></label><br>
-                            <input type="text" name="search" id="search-input" placeholder="Search..">
+                            <input type="search" name="search" id="search-input" placeholder="Search..">
                             <!-- This button will trigger our AJAX call -->
-                            <input id="find-city-weather" type="submit" value="Weather Search">                            
+                            <!-- <input id="find-city-weather" type="submit" value="Weather Search">     -->
+                            <button type="submit" class="btn btn-default bg-primary" id="run-search">
+                                <i class="fa fa-search text-white"></i></button>                        
                              </form>
                     </div>
                 </div>
@@ -102,7 +104,7 @@
                 <div class="row m-2">
                     <div class="rounded col-2 card bg-primary text-light p-0 mx-2">
                         <div class="card-body p-2" id="day1">
-                            <h5 class="card-title" id="date-day1">Date</h5>
+                            <h5 class="card-title" id="date-day1">Date day 1</h5>
                             <img id="icon-day1" src="http://openweathermap.org/img/wn/10d@2x.png" alt="weather icon">
                             <p class="card-text" id="temp-day1">Temp:</p>
                             <p class="card-text" id="humid-day1">Humidity:</p>
@@ -110,7 +112,7 @@
                     </div>
                     <div class="rounded col-2 card bg-primary text-light p-0 mx-2">
                         <div class="card-body p-2" id="day2">
-                            <h5 class="card-title" id="date-day2">Date Day 2</h5>
+                            <h5 class="card-title" id="date-day2">Date day 2</h5>
                             <img id="icon-day2" src="http://openweathermap.org/img/wn/10d@2x.png" alt="weather icon">
                             <p class="card-text" id="temp-day2">Temp:</p>
                             <p class="card-text" id="humid-day2">Humidity:</p>
@@ -118,7 +120,7 @@
                     </div>
                     <div class="rounded col-2 card bg-primary text-light p-0 mx-2">
                         <div class="card-body p-2" id="day3">
-                            <h5 class="card-title" id="date-day3">Date Day 3</h5>
+                            <h5 class="card-title" id="date-day3">Date day 3</h5>
                             <img id="icon-day3" src="http://openweathermap.org/img/wn/10d@2x.png" alt="weather icon">
                             <p class="card-text" id="temp-day3">Temp:</p>
                             <p class="card-text" id="humid-day3">Humidity:</p>
@@ -126,7 +128,7 @@
                     </div>
                     <div class="rounded col-2 card bg-primary text-light p-0 mx-2">
                         <div class="card-body p-2" id="day4">
-                            <h5 class="card-title" id="date-day4">Date Day 4</h5>
+                            <h5 class="card-title" id="date-day4">Date day 4</h5>
                             <img id="icon-day4" src="http://openweathermap.org/img/wn/10d@2x.png" alt="weather icon">
                             <p class="card-text" id="temp-day4">Temp:</p>
                             <p class="card-text" id="humid-day4">Humidity:</p>
@@ -134,7 +136,7 @@
                     </div>
                     <div class="rounded col-2 card bg-primary text-light p-0 mx-2">
                         <div class="card-body p-2" id="day5">
-                            <h5 class="card-title" id="date-day5">Date Day 5</h5>
+                            <h5 class="card-title" id="date-day5">Date day 5</h5>
                             <img id="icon-day5" src="http://openweathermap.org/img/wn/10d@2x.png" alt="weather icon">
                             <p class="card-text" id="temp-day5">Temp:</p>
                             <p class="card-text" id="humid-day5">Humidity:</p>
@@ -180,7 +182,7 @@
             }
 
 
-            $("#find-city-weather").on("click", function weatherQuery(event) {
+            $("#run-search").on("click", function weatherQuery(event) {
                 // event.preventDefault() prevents the form from trying to submit itself.
                 // We're using a form so that the user can hit enter instead of clicking the button if they want
 
@@ -272,7 +274,7 @@
                                             console.log(cityName + " " + "(" + humanDateFormat + ")");
                                             let dailyDate = $("<h5>");
                                             let dailyBox = "#date-day" + (i+1);
-                                                $(dailyBox).text("(" + humanDateFormat + ")");
+                                                $(dailyBox).text(humanDateFormat);
                                                 
                                                 // add icon
                                                 console.log("Icon: " + response.daily[i].weather[0].icon);
@@ -304,7 +306,7 @@
       // We're adding a click event listener to all elements with the class "city"
       // We're adding the event listener to the document because it will work for dynamically generated elements
       // $(".city").on("click") will only add listeners to elements that are on the page at that time
-      $(document).on("click", ".city", weatherQuery());
+      $(document).on("click", ".city", weatherQuery);
 
     </script>
   </body>
