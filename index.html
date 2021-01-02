@@ -50,7 +50,7 @@
             border: 1px solid rgb(192, 192, 192);
         }
         </style>
-
+        <script src="https://kit.fontawesome.com/c48e706f9f.js" crossorigin="anonymous"></script>
     </head>
 
     <body>
@@ -64,16 +64,12 @@
             <div class="col-3" id="sidebar">
                <div class="row p-2">
                    <div class="col-12">
-                        <label for="city-search"><h5>Search for a City:</h5></label>
-                    </div>
-               </div>
-               <div class="row p-2">
-                    <div class="input-field col-11">
-                        <p>Search for temp city:</p>
-
-                        <form>
-                            <input type="text" name="search" placeholder="Search..">
-                        </form>
+                       <form>
+                            <label for="city-search"><h5>Search for a City:</h5></label><br>
+                            <input type="text" name="search" id="search-input" placeholder="Search..">
+                            <!-- This button will trigger our AJAX call -->
+                            <input id="find-city-weather" type="submit" value="Weather Search">                            
+                             </form>
                     </div>
                 </div>
                 
@@ -81,15 +77,6 @@
                     <div class="col-12">
                         <table>
                             <tbody>
-                                <tr>
-                                    <td>a city</td>
-                                </tr>
-                                <tr>
-                                    <td>another city</td>
-                                </tr>
-                                <tr>
-                                    <td>more cities</td>
-                                </tr>
                             </tbody>
                         </table>        
                     </div>
@@ -109,59 +96,55 @@
                 </div>
                 <div class="row">
                     <div class="col mx-3">
-                          <h5><strong>5-day Forecast:</strong></h5>
+                          <h5 id="5-day-outlook">5-Day Forecast:</h5>
                     </div>
                 </div>
                 <div class="row m-2">
                     <div class="rounded col-2 card bg-primary text-light p-0 mx-2">
-                        <div class="card-body p-2">
-                            <h5 class="card-title">Date</h5>
-                            <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="weather icon">
-                            <p class="card-text">Temp:</p>
-                            <p class="card-text">Humidity:</p>
+                        <div class="card-body p-2" id="day1">
+                            <h5 class="card-title" id="date-day1">Date</h5>
+                            <img id="icon-day1" src="http://openweathermap.org/img/wn/10d@2x.png" alt="weather icon">
+                            <p class="card-text" id="temp-day1">Temp:</p>
+                            <p class="card-text" id="humid-day1">Humidity:</p>
                         </div>
                     </div>
-                    <div class="col-2 mr-3 card bg-primary text-light p-0 mx-2">
-                        <div class="card-body p-2">
-                            <h5 class="card-title">Date</h5>
-                            <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="weather icon">
-                            <p class="card-text">Temp:</p>
-                            <p class="card-text">Humidity:</p>
+                    <div class="rounded col-2 card bg-primary text-light p-0 mx-2">
+                        <div class="card-body p-2" id="day2">
+                            <h5 class="card-title" id="date-day2">Date Day 2</h5>
+                            <img id="icon-day2" src="http://openweathermap.org/img/wn/10d@2x.png" alt="weather icon">
+                            <p class="card-text" id="temp-day2">Temp:</p>
+                            <p class="card-text" id="humid-day2">Humidity:</p>
                         </div>
                     </div>
-                    <div class="col-2 mr-3 card bg-primary text-light p-0 mx-2">
-                        <div class="card-body p-2">
-                            <h5 class="card-title">Date</h5>
-                            <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="weather icon">
-                            <p class="card-text">Temp:</p>
-                            <p class="card-text">Humidity:</p>
+                    <div class="rounded col-2 card bg-primary text-light p-0 mx-2">
+                        <div class="card-body p-2" id="day3">
+                            <h5 class="card-title" id="date-day3">Date Day 3</h5>
+                            <img id="icon-day3" src="http://openweathermap.org/img/wn/10d@2x.png" alt="weather icon">
+                            <p class="card-text" id="temp-day3">Temp:</p>
+                            <p class="card-text" id="humid-day3">Humidity:</p>
                         </div>
                     </div>
-                    <div class="col-2 card bg-primary text-light p-0 mx-2">
-                        <div class="card-body p-2">
-                            <h5 class="card-title">Date</h5>
-                            <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="weather icon">
-                            <p class="card-text">Temp:</p>
-                            <p class="card-text">Humidity:</p>
+                    <div class="rounded col-2 card bg-primary text-light p-0 mx-2">
+                        <div class="card-body p-2" id="day4">
+                            <h5 class="card-title" id="date-day4">Date Day 4</h5>
+                            <img id="icon-day4" src="http://openweathermap.org/img/wn/10d@2x.png" alt="weather icon">
+                            <p class="card-text" id="temp-day4">Temp:</p>
+                            <p class="card-text" id="humid-day4">Humidity:</p>
                         </div>
                     </div>
-                    <div class="col-2 mr-3 card bg-primary text-light p-0 mx-2">
-                        <div class="card-body p-2">
-                            <h5 class="card-title">Date</h5>
-                            <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="weather icon">
-                            <p class="card-text">Temp:</p>
-                            <p class="card-text">Humidity:</p>
+                    <div class="rounded col-2 card bg-primary text-light p-0 mx-2">
+                        <div class="card-body p-2" id="day5">
+                            <h5 class="card-title" id="date-day5">Date Day 5</h5>
+                            <img id="icon-day5" src="http://openweathermap.org/img/wn/10d@2x.png" alt="weather icon">
+                            <p class="card-text" id="temp-day5">Temp:</p>
+                            <p class="card-text" id="humid-day5">Humidity:</p>
                         </div>
                     </div>
+                    
                 </div>
             </div>
         </div>
-    
-        <!-- <button data-weather="Melbourne,au">Melbourne Temp</button>
-        <button data-weather="Tokyo">Tokyo Temp</button>
-        <button data-weather="London">London Temp</button> -->
-    
-        
+            
         <!-- jQuery script -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         
@@ -169,75 +152,160 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
         
         <script type="text/javascript">
-            $("button").on("click", function() {
-            var city = $(this).attr("data-weather");
-            var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" +
-            city + "&units=metric&APPID=2c21c13c66f088ce875b0a51abc2134e";
+            // Global variables
+
+            let citiesArray = ["Paris", "London", "Melbourne,au", "Perth", "Tokyo"];
+
+            // Generic function for capturing the city name from the data-attribute
+            var cityName = $(this).attr("data-name");
+
+            // Function to fill the list of cities searched
+            function renderTable() {
+                
+                // Delete the list of cities prior to adding new city table data 
+                // (necessary to prevent repeat of table data)
+                $("tbody").empty();
+
+                // Loop through the array of cities
+                for (var i = 0; i < citiesArray.length; i++) {
+                    // Dynamically generate table rows and tables data for each city in the array.
+                    var tRow = $("<tr>");
+                    var tData = $("<td>");
+                    tData.addClass("city");
+                    tData.attr("data-name", citiesArray[i]);
+                    tData.text(citiesArray[i]);
+                    tRow.append(tData);
+                    $("tbody").append(tRow);
+                }
+            }
+
+
+            $("#find-city-weather").on("click", function weatherQuery(event) {
+                // event.preventDefault() prevents the form from trying to submit itself.
+                // We're using a form so that the user can hit enter instead of clicking the button if they want
+
+                event.preventDefault();
+
+                // This grabs text from the input box
+                let city = $("#search-input").val().trim();
+                if (city == "") {
+                    alert("City Search must be filled-in");
+                    return false;
+                }
+                // The city from the textbox is then added to our array
+                citiesArray.push(city);
+
+                // calling renderTable which handles the processing of our cities array
+                renderTable();
+
+
+
+                var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" +
+                city + "&units=metric&APPID=2c21c13c66f088ce875b0a51abc2134e";
   
             $.ajax({
             url: queryURL,
             method: "GET"
             }).then(function(response) {
-            // Step 1: Run this file, click a button, and see what the response object looks like in the browser's console.
-            // Open up the data key, then open up the 0th, element. Study the keys and how the JSON is structured.
-  
-          console.log(response);
-          console.log("Humidity: " + response.main.humidity + "%");
-          console.log("Wind Speed: " + response.wind.speed + "km/h");
-          console.log(response.name + " temperature: " + (response.main.temp)+" degrees C");
-          const milliseconds = response.dt * 1000;
-          const dateObject = new Date(milliseconds);
-          const humanDateFormat = dateObject.toLocaleString("en-US", {day: "numeric", month: "numeric", year: "numeric"});
-          console.log("(" + humanDateFormat + ")"); 
-          // add weather icon
-          console.log(response.weather[0].icon);
-          
+                var cityName = response.name;
+                // prepare the retrieved date data for html
+                const milliseconds = response.dt * 1000;
+                const dateObject = new Date(milliseconds);
+                const humanDateFormat = dateObject.toLocaleString("en-GB", {day: "numeric", month: "numeric", year: "numeric"});
+                
+                // Dynamically generate table rows and tables data for each city in the array.
+                $("#current-weather").empty();
+                
+                var currentDate = $("<h4>");
+                    // currentDate.attr("id", "current-date");
+                    currentDate.text(response.name + " " + "(" + humanDateFormat + ")");
+                    $("#current-weather").append(currentDate);
+                    
+                    var icon = response.weather[0].icon;
+                    var weatherIcon = ("http://openweathermap.org/img/wn/" + icon + "@2x.png");
+                    var iconTag = $("<img>");
+                    iconTag.attr("src", weatherIcon);
+                    iconTag.attr("alt", "weather icon");
+                    // <img src = weatherIcon alt="weather icon">
+                    $("#current-weather").append(iconTag);
+                    
+                    
+                    var currentTemp = $("<p>");
+                        currentTemp.text("Temperature: " + response.main.temp + "°C");
+                        $("#current-weather").append(currentTemp);
+                        
+                        var currentHumidity = $("<p>");
+                            currentHumidity.text("Humidity: " + response.main.humidity + "%");
+                            $("#current-weather").append(currentHumidity);
+                            
+                            var currentWSpeed = $("<p>");
+                                currentWSpeed.text("Wind Speed: " + response.wind.speed + "km/h");
+                                $("#current-weather").append(currentWSpeed);
+                                
+                                
+                                
+                                // Step 2: Use the longitude and latitude from the Current weather data query to get weather data from the One Call API (free) which includes Daily forecast for 7 days, JSON format, and UV index data.
+                                var queryURL2 = "https://api.openweathermap.org/data/2.5/onecall?lat=" + response.coord.lat + "&lon=" + response.coord.lon + "&exclude=minutely,hourly&units=metric&appid=2c21c13c66f088ce875b0a51abc2134e";
+                                
+                                $.ajax({
+                                    url: queryURL2,
+                                    method: "GET"
+                                }).then(function(response) {
+                                    console.log(response);
+                                    console.log("UV Index: " + response.current.uvi);
+                                    
+                                    var currentUV = $("<p>");
+                                        currentUV.text("UV Index: " + response.current.uvi);
+                                        $("#current-weather").append(currentUV);
+                                        
+                                        
+                                        // 5-day forecast test
+                                        // prepare the retrieved date data for html
+                                        for (var i = 0; i < 5; i++) {
+                                            // create box for each day
+                                            
+                                            // add date
+                                            const milliseconds = response.daily[i].dt * 1000;
+                                            const dateObject = new Date(milliseconds);
+                                            const humanDateFormat = dateObject.toLocaleString("en-GB", {day: "numeric", month: "numeric", year: "numeric"});
+                                            // tomorrowDate.text(cityName + " " + "(" + humanDateFormat + ")");
+                                            console.log(cityName + " " + "(" + humanDateFormat + ")");
+                                            let dailyDate = $("<h5>");
+                                            let dailyBox = "#date-day" + (i+1);
+                                                $(dailyBox).text("(" + humanDateFormat + ")");
+                                                
+                                                // add icon
+                                                console.log("Icon: " + response.daily[i].weather[0].icon);
+                                                let dailyIcon = "#icon-day" + (i+1);
+                                                let dailyWeatherIcon = "http://openweathermap.org/img/wn/" + (response.daily[i].weather[0].icon) + "@2x.png"
+                                                $(dailyIcon).attr("src", dailyWeatherIcon);
 
-        // Step 2: Use the longitude and latitude from the Current weather data query to get weather data from the One Call API (free) which includes Daily forecast for 7 days, JSON format, and UV index data.
-          var queryURL2 = "https://api.openweathermap.org/data/2.5/onecall?lat=" + response.coord.lat + "&lon=" + response.coord.lon + "&exclude=minutely,hourly&units=metric&appid=2c21c13c66f088ce875b0a51abc2134e";
-
-          $.ajax({
-          url: queryURL2,
-          method: "GET"
-        }).then(function(response) {
-            console.log(response);
-            console.log("UV Index: " + response.current.uvi);
-            
+                                                // add temp
+                                                let dailyTemp = "#temp-day" + (i+1);
+                                                $(dailyTemp).text("Temp: " + response.daily[i].temp.max + "°C");
+                                                
+                                                
+                                                // add humidity
+                                                console.log("Humidity: " + response.daily[i].humidity + "%");
+                                                let dailyHumid = "#humid-day" + (i+1);
+                                                $(dailyHumid).text("Humidity: " + response.daily[i].humidity + "%");
+                                        };
+                                        
+                                    });
+                                    
+                                    
         });
-
-          // Step 2: since the image information is inside of the data key,
-          // make a variable named results and set it equal to response.data
-  
-          // =============== put step 2 in between these dashes ==================
-                    // var results = response.data;
-          // ========================
-  
-                    //  for (var i = 0; i < results.length; i++) {
-  
-          // Step 3: uncomment the for loop above and the closing curly bracket below.
-          // Make a div with jQuery and store it in a variable named animalDiv.
-          // Make a paragraph tag with jQuery and store it in a variable named p.
-          // Set the inner text of the paragraph to the rating of the image in results[i].
-          // Make an image tag with jQuery and store it in a variable named animalImage.
-          // Set the image's src to results[i]'s fixed_height.url.
-          // Append the p variable to the animalDiv variable.
-          // Append the animalImage variable to the animalDiv variable.
-          // Prepend the animalDiv variable to the element with an id of gifs-appear-here.
-  
-          // ============= put step 3 in between these dashes ======================
-                    // var cityDiv = $("<div>");
-                    // var p = $("<p>");
-                    // p.text(response); // got this from data object
-                    // // var animalImage = $("<img>");
-                    // // animalImage.attr("src", results[i].images.fixed_height.url);
-                    // cityDiv.append(p);
-                    // // cityDiv.append(animalImage);
-                    // $("#gifs-appear-hear").prepend(cityDiv);
-          // ==================================
-        //   }
-  
-        });
+        
       });
+        // Calling the renderTable function to display the initial table of cities
+        renderTable();
+
+      // Function for displaying the city weather info
+      // We're adding a click event listener to all elements with the class "city"
+      // We're adding the event listener to the document because it will work for dynamically generated elements
+      // $(".city").on("click") will only add listeners to elements that are on the page at that time
+      $(document).on("click", ".city", weatherQuery());
+
     </script>
   </body>
 </html>
