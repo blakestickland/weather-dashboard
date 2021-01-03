@@ -91,7 +91,7 @@
                             <label for="city-search-text"><h5>Search for a City:</h5></label><br>
                             <input type="search" name="search" id="search-input" placeholder="Search..">
                             <!-- This button will trigger our AJAX call -->
-                            <button type="submit" class="btn btn-default bg-primary city" id="run-search">
+                            <button type="submit" class="btn btn-default bg-primary" id="run-search">
                                 <i class="fa fa-search text-white"></i></button>                        
                         </form>
                     </div>
@@ -183,6 +183,8 @@
             let citiesTable = $("#city-search-table");
 
             let citiesArray = [];
+            
+            let city = "";
 
             init();
 
@@ -201,21 +203,23 @@
                     // Render new table row and table data elements for each city in the array.
                     var tRow = $("<tr>");
                     var tData = $("<td>");
+                    var tSpan = $("<span>");
 
-                    tData.addClass("city");
+                    tSpan.addClass("city");
                     tData.attr("data-name", citiesArray[i]);
                     tData.attr("data-index", i);
-                    tData.text(citiesArray[i]);
+                    tSpan.text(citiesArray[i]);
 
                     let button = $("<button>");
                     button.text("Remove");
                     button.attr("class", "btn bg-danger rounded text-white");
-
+                    
+                    tData.append(tSpan);
                     tData.append(button);
                     tRow.append(tData);
                     $("tbody").append(tRow);
                 }
-            }
+            };
 
 
             function init() {
@@ -236,38 +240,54 @@
                 // Stringify and set "cities" key in localStorage to cities array
                 localStorage.setItem("cities", JSON.stringify(citiesArray));
             }
-
-
-
+            
+            function sayHello(event) {
+                event.preventDefault();
+                alert("Hello!");
+            }
+            $("h1").on("click", sayHello);
+            
 
             // When a city is entered in the Search input box...
-            $("#run-search").on("click", function weatherQuery(event) {
-                
+            $("#run-search").on("click", function (event) {
+
                 // event.preventDefault() prevents the form from trying to submit itself.
                 // We're using a form so that the user can hit enter instead of clicking the button if they want
                 event.preventDefault();
-
+                
                 // This grabs text from the input box
-                let city = citiesInput.val().trim();
-
+                city = citiesInput.val().trim();
+                
                 // Return from function early if cityText is blank
                 if (city === "") {
                     alert("City Search must be filled-in");
                     return false;
                 }
-
+                
                 // The city from the textbox is then added to our array, clear the input
                 citiesArray.push(city);
-                city.value = "";
-
+                citiesInput.value = "";
+                
                 // calling renderTable which handles the processing of our cities array
                 storeCities();
                 renderTable();
+                
+                console.log(city + " before weatherQuery function");
+                weatherQuery();
+            });
+               
 
 
+            function weatherQuery() {
+                
+                // event.preventDefault() prevents the form from trying to submit itself.
+                // We're using a form so that the user can hit enter instead of clicking the button if they want
+                event.preventDefault();
 
                 var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" +
                 city + "&units=metric&APPID=2c21c13c66f088ce875b0a51abc2134e";
+
+                console.log(city + " aftr API query");
   
                 $.ajax({
                 url: queryURL,
@@ -385,14 +405,16 @@
                         });                                    
                 });
         
-             });
+             };
+
+
 
 
              
 
       // When an element inside the citiesTable is clicked....
       citiesTable.on("click", function (event) {
-        // event.preventDefault();
+        event.preventDefault();
 
         let element = event.target;
 
@@ -401,10 +423,18 @@
             // Get its data-index value and remove the cities element from the table
             var index = element.parentElement.getAttribute("data-index");
             citiesArray.splice(index, 1);
-
+            
             // Store updated cities in localStorage, re-render the table
             storeCities();
             renderTable();
+        }
+        // If that element is a span...
+        if (element.matches("span") === true) {
+            // Get its data-name value and run function weatherQuery with data-name
+            var tableCityName = element.parentElement.getAttribute("data-name");
+            console.log(tableCityName);
+            city = tableCityName;
+            weatherQuery();
         }
       });
 
@@ -415,7 +445,7 @@
       // We're adding a click event listener to all elements with the class "city"
       // We're adding the event listener to the document because it will work for dynamically generated elements
       // $(".city").on("click") will only add listeners to elements that are on the page at that time
-      $(document).on("click", ".city", weatherQuery());
+    //   $(document).on("click", ".city", weatherQuery);
 
     </script>
   </body>
