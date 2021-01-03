@@ -1,2 +1,67 @@
 /* stylesheet for weather-dashboard */
 
+body {
+    font-size: 1.5vw;
+}
+
+h1 {
+    font-size: 4vw;
+}
+
+h4 {
+    font-size: 2.5vw;
+}
+
+h5 {
+    font-size: 1.5vw;
+}
+
+table, th, td {
+  border: 1px solid rgb(192, 192, 192);
+  border-collapse: collapse;
+}
+#sidebar {
+    background-color: rgb(245, 245, 245);
+}
+table {
+    width: 100%;
+}
+tbody {
+    background-color: white;
+    color: rgb(88, 88, 88);
+}
+td {
+    padding: 0.4rem 1rem 0.4rem 1rem;
+}
+
+td button {
+    float: right;
+}
+
+input[type=text] {
+    /* width: 130px; */
+    box-sizing: content-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 1vw;
+    background-color: white;
+    /* background-image: url('assets/search-24px.svg'); */
+    background-position: 10px 10px; 
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 20px;
+    transition: width 0.4s ease-in-out;
+}
+
+input[type=text]:focus {
+    width: 100%;
+}
+
+#current-weather {
+    border: 1px solid rgb(192, 192, 192);
+}
+
+.responsive {
+    max-width: 100%;
+    height: auto;
+}   
+
