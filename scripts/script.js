@@ -149,7 +149,7 @@
                     $("#current-weather").append(currentHumidity);
                                 
                     var currentWSpeed = $("<p>");
-                    currentWSpeed.text("Wind Speed: " + response.wind.speed + "m/s");
+                    currentWSpeed.text("Wind Speed: " + response.wind.speed + " km/h");
                     $("#current-weather").append(currentWSpeed);
                                     
                                     
