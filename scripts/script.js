@@ -95,7 +95,6 @@
                 storeCities();
                 renderTable();
                 
-                console.log(city + " before weatherQuery function");
                 weatherQuery();
             });
                
@@ -109,8 +108,6 @@
 
                 var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" +
                 city + "&units=metric&APPID=2c21c13c66f088ce875b0a51abc2134e";
-
-                console.log(city + " aftr API query");
   
                 $.ajax({
                 url: queryURL,
@@ -132,7 +129,7 @@
                     
                     // Add weather icon
                     var icon = response.weather[0].icon;
-                    var weatherIcon = ("http://openweathermap.org/img/wn/" + icon + "@2x.png");
+                    var weatherIcon = ("https://openweathermap.org/img/wn/" + icon + "@2x.png");
                     var iconTag = $("<img>");
                     iconTag.attr("src", weatherIcon);
                     iconTag.attr("alt", "weather icon");
@@ -161,9 +158,6 @@
                         url: queryURL2,
                         method: "GET"
                     }).then(function(response) {
-                        console.log(response);
-                        console.log("UV Index: " + response.current.uvi);
-                        
                         var button = $("<button>");
                         button.text(response.current.uvi);
                         button.attr("class", "btn rounded text-white");
@@ -209,8 +203,6 @@
                             const milliseconds = response.daily[i].dt * 1000;
                             const dateObject = new Date(milliseconds);
                             const humanDateFormat = dateObject.toLocaleString("en-GB", {day: "numeric", month: "numeric", year: "numeric"});
-                            // tomorrowDate.text(cityName + " " + "(" + humanDateFormat + ")");
-                            let dailyDate = $("<h5>");
                             let dailyBox = "#date-day" + (i+1);
                             $(dailyBox).text(humanDateFormat);
                             
