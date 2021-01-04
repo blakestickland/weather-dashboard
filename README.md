@@ -39,10 +39,13 @@ https://blakestickland.github.io/weather-dashboard/
 
 * Responsive buttons and images (the weather icons in this case) to shrink with the screen size.
 
+* Would like search box to clear after the city name is submitted. It only clears when the box is clicked after submitting via the search-button at the moment.
+
 
 ## Compromises:
 
 * Attempted to make both the buttons and the images responsive but have had no luck in getting them to shrink in proportion to the screen size. 
 
-* Found white text difficult to read on the (possible) yellow background of the UV index so change the text-color to black in that scenario. 
+* Found white text difficult to read on the (possible) yellow background of the UV index so change the text-color to black in that scenario.
+
 
